@@ -1,0 +1,27 @@
+name: mqttdemo-mosquitto
+version: "v1.4.9"
+summary: An Open Source MQTT v3.1/v3.1.1 Broker
+description: Eclipse Mosquitto™ is an open source (EPL/EDL licensed) message broker that implements the MQTT protocol versions 3.1 and 3.1.1. MQTT provides a lightweight method of carrying out messaging using a publish/subscribe model. This makes it suitable for "Internet of Things" messaging such as with low power sensors or mobile devices such as phones, embedded computers or microcontrollers like the Arduino.
+confinement: strict
+
+apps:
+  mqttdemo-mosquitto:
+    command: usr/local/sbin/mosquitto -c $SNAP_USER_DATA/mosquitto.conf
+    plugs: [network-bind]
+
+parts:
+  mosquitto:
+    plugin: make
+    source: https://github.com/eclipse/mosquitto.git
+    make-parameters:
+      - WITH_WEBSOCKETS=yes
+    source-tag: v1.4.9
+    build-packages:
+      - build-essential  
+      - libssl-dev
+      - libc-ares-dev
+      - uuid-dev
+      - xsltproc
+      - docbook
+      - docbook-xsl
+      - libwebsockets-dev

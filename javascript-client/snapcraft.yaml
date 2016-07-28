@@ -1,0 +1,19 @@
+name: mqttdemo-javascript
+version: 1
+summary: Go webserver used to serve javascript demo on port 8080
+description: Go webserver used to serve index.html and js/main.js files on port 8080. Use paho javascript and chart.js to create visual interface
+confinement: strict
+
+apps:
+  mqttdemo-javascript:
+    command: bin/mqtt-javascript
+    plugs: [network, network-bind]
+
+parts:
+    mqtt-demo:
+      plugin: go
+      source: ./
+    code:
+      plugin: copy
+      files: 
+        '*' : www/

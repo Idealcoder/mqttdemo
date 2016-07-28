@@ -1,0 +1,24 @@
+name: mqttdemo-c
+version: "master"
+summary: Example MQTT client using paho C libraries 
+description: Example MQTT client publishes cpu/memory/disk usage to "mqttdemo/status" topic every second.
+confinement: strict
+
+apps:
+  mqttdemo-c:
+    command: bin/mqttdemo-c
+    plugs: [network-bind]
+
+parts:
+  mqttdemo-c:
+    plugin: make
+    source: ./
+    after: [paho]
+    stage-packages:
+      - libstatgrab-dev
+  paho:
+    plugin: cmake
+    source: https://github.com/eclipse/paho.mqtt.c.git
+    build-packages:
+      - build-essential
+      - libssl-dev
