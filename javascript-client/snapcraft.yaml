@@ -6,7 +6,7 @@ confinement: strict
 
 apps:
   mqttdemo-javascript:
-    command: bin/mqtt-javascript
+    command: bin/javascript-client
     plugs: [network, network-bind]
 
 parts:
