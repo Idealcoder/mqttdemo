@@ -41,7 +41,6 @@ int main(int argc, char* argv[])
 
     //memory usage
     sg_mem_stats *mem_stats;
-    //sg_swap_stats *swap_stats;
     long long total, free;
     
     //disk usage
@@ -56,7 +55,6 @@ int main(int argc, char* argv[])
         cpu_diff_stats = sg_get_cpu_stats_diff(NULL);
         cpu_percent = sg_get_cpu_percents_of(sg_last_diff_cpu_percent, NULL) ;
         mem_stats = sg_get_mem_stats(NULL);
-        //swap_stats = sg_get_swap_stats(NULL); 
         total = mem_stats->total;
         free = mem_stats->free;
 
