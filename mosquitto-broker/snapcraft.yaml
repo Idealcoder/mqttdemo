@@ -6,10 +6,15 @@ confinement: strict
 
 apps:
   mqttdemo-mosquitto:
-    command: usr/local/sbin/mosquitto -c $SNAP_USER_DATA/mosquitto.conf
+    command: sh $SNAP/wrapper.sh
     plugs: [network-bind]
 
 parts:
+  wraper:
+    plugin: copy
+    files:
+      ./wrapper.sh: wrapper.sh
+      ./mosquitto.conf : etc/mosquitto/mosquitto.conf
   mosquitto:
     plugin: make
     source: https://github.com/eclipse/mosquitto.git
