@@ -4,6 +4,7 @@
 #include "unistd.h"
 #include "../../paho/install/include/MQTTClient.h"
 #include "statgrab.h"
+#include "getopt.h"
 
 #define ADDRESS     "tcp://localhost:1883" //TODO - set this as command line argument
 #define CLIENTID    "ExampleClientPub"
@@ -28,6 +29,7 @@ int main(int argc, char* argv[])
         printf("Failed to connect, return code %d\n", rc);
         exit(-1);
     }
+    printf("C Client connecting to %s on port %s \n","localhost","1883");
   
     char message[256]; //to store message
 
@@ -61,7 +63,7 @@ int main(int argc, char* argv[])
         //create JSON message
         sprintf(message,"{"
         "\"id\":\"%s\","
-        "\"hostname\":\"%s\","
+        "\"hostname\":\"%s-C\","
         "\"cpu\":\"%6.2f\","
         "\"memory\":\"%6.2f\","
         "\"disk\":\"60\""
@@ -75,8 +77,9 @@ int main(int argc, char* argv[])
         pubmsg.qos = 0;
         pubmsg.retained = 0;
         MQTTClient_publishMessage(client, TOPIC, &pubmsg, &token);
-        printf("Message %s\n published on topic %s",message, TOPIC);
+        printf("Sending message: %s on topic %s.",message, TOPIC);
         rc = MQTTClient_waitForCompletion(client, token, 10000L);
+        printf(" Success\n"); 
 
         usleep(1000*1000);
     }
